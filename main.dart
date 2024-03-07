@@ -1,30 +1,47 @@
 import 'dart:io';
 import 'dart:async';
 
-void main() {
+String? order;
+int n = 0;
+bool flag = true;
+
+Future<String?> userwait() async {
+  stdin.listen((data) {order = String.fromCharCodes(data).trim();});
+  return order; 
+}
+
+void main() async{
   print("ストップウォッチを開始するならsを押してね");
   print('時間を知りたいときはtを押してね');
-  String? oder;
-  int n = 0;
-  bool flag = true;
-  // Timer timer;
-  // timer = Timer.periodic(Duration(seconds: 1), (timer) {});//ここがないとなぜかtimer.cancel();でエラーが起きる
-  while(oder != 'end'){
-    oder = stdin.readLineSync();
-    if(oder == 's'){
-      if(flag == true){
-        Timer.periodic(Duration(seconds: 1), (timer) {
+  //stdin.listen((data) {order = String.fromCharCodes(data).trim();});
+  while(order != 'end'){
+    order = stdin.readLineSync();
+    if(order == 's'){
+      while(flag == true){
         n = n+1;
-        });
-      flag = false;
+        print(n);
+        order = await userwait()
+            .timeout(Duration(seconds: 1),onTimeout: () {
+              return Future.value(null);
+            });
+        if(order == 'null'){
+          continue;
+        }else if(order == 's'){
+          flag = false;
+          print('タイマーストップ');
+          break;
+        };
       }
-      // else{
-      //   timer.cancel();
-      //   flag = true;
-      //   print(n);
-      // }
-    }else if(oder == 't'){
+      if(flag = false){
+        flag = true;
+        print('再スタート');
+      }
+    }
+    if(order == 't'){
       print(n);
+    }else if(order =='r'){
+      n = 0;
+      print('リセットしました');
     }else{
       print('もう一度入力しなおしてください');
     }
