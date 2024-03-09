@@ -1,3 +1,6 @@
+//非同期処理で作ろうとしたタイマー
+//後で完成させる
+
 import 'dart:io';
 import 'dart:async';
 

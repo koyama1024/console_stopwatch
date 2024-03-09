@@ -1,36 +1,35 @@
 import 'dart:io';
 
-String? order;
-late DateTime starttime;
-late DateTime stoptime;
-bool timesate = false;
+late DateTime startTime;
+late DateTime stopTime;
+bool timeState = false;
 
 void start(){
-  starttime = DateTime.now();
-  timesate = true;
+  startTime = DateTime.now();
+  timeState = true;
   print('カウント開始');
 }
 
 void stop(){
-  stoptime = DateTime.now();
-  timesate = false;
+  stopTime = DateTime.now();
+  timeState = false;
   print('カウント停止');
 }
 
 void passtime(){
-  if(timesate){
-    var nowtime = DateTime.now();
-    var passtime = nowtime.difference(starttime);
+  if(timeState){
+    final nowtime = DateTime.now();
+    final passtime = nowtime.difference(startTime);
     print('経過時間: ${passtime.inSeconds} 秒');
-  }else if(!timesate){
-    var passtime = stoptime.difference(starttime);
+  }else if(!timeState){
+    var passtime = stopTime.difference(startTime);
     print('経過時間: ${passtime.inSeconds} 秒');
   }
 }
 
 void reset(){
-  starttime = DateTime.now();
-  stoptime = DateTime.now();
+  startTime = DateTime.now();
+  stopTime = DateTime.now();
   print('タイマーをリセットしました');
 }
 
@@ -40,7 +39,7 @@ void main(){
   print('resetを押すとタイマーがリセットされるよ');
   print('終了するときはendを押してね');
   while(true){
-    String? order = stdin.readLineSync();
+    final order = stdin.readLineSync();
     if(order == 'start'){
       start();
     }else if(order == 'stop'){
